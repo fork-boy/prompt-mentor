@@ -1,4 +1,5 @@
 import express, { Express, Request, Response, NextFunction } from "express";
+import cors from "cors";
 import promptRoutes from "./routes/prompt.route";
 import { config } from "./config/env";
 
@@ -9,28 +10,25 @@ import { config } from "./config/env";
 export function createServer(): Express {
   const app = express();
 
-  // Middleware
+  // CORS - Simple and reliable
+  app.use(
+    cors({
+      origin: "*",
+      methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+      allowedHeaders: [
+        "Origin",
+        "X-Requested-With",
+        "Content-Type",
+        "Accept",
+        "Authorization",
+      ],
+      credentials: false,
+    }),
+  );
+
+  // Body parser middleware
   app.use(express.json());
   app.use(express.urlencoded({ extended: true }));
-
-  // CORS middleware
-  app.use((req: Request, res: Response, next: NextFunction) => {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header(
-      "Access-Control-Allow-Methods",
-      "GET, POST, PUT, DELETE, OPTIONS",
-    );
-    res.header(
-      "Access-Control-Allow-Headers",
-      "Origin, X-Requested-With, Content-Type, Accept, Authorization",
-    );
-
-    if (req.method === "OPTIONS") {
-      res.sendStatus(200);
-    } else {
-      next();
-    }
-  });
 
   // Request logging middleware
   app.use((req: Request, res: Response, next: NextFunction) => {
