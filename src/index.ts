@@ -4,16 +4,13 @@ import { config } from "./config/env";
 /**
  * Application Bootstrap
  */
-
 const app = createServer();
 const port = config.port;
 
 app.listen(port, () => {
-  console.log(`🚀 Server running on http://localhost:${port}`);
+  console.log(`🚀 Server started`);
   console.log(`📝 Environment: ${config.nodeEnv}`);
-  console.log(
-    `📊 API available at http://localhost:${port}/api/prompt/improve`,
-  );
+  console.log(`📡 Listening on port ${port}`);
 });
 
 // Graceful shutdown
