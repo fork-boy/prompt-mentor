@@ -18,7 +18,9 @@
     "strictFunctionTypes": true,
     "noUnusedLocals": false,
     "noUnusedParameters": false,
-    "noImplicitReturns": true
+    "noImplicitReturns": true,
+    "moduleResolution": "node", // ADD THIS
+    "types": ["node"] // ADD THIS
   },
   "include": ["src/**/*"],
   "exclude": ["node_modules", "dist", "**/*.test.ts"]
